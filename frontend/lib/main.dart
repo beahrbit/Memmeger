@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/screens/event_screen.dart';
+import 'package:frontend/screens/events_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -25,9 +25,9 @@ class App extends StatelessWidget {
         Locale('de', ''),
       ],
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
       ),
-      home: const EventScreen(),
+      home: const EventsScreen(),
     );
   }
 }

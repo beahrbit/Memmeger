@@ -1,0 +1,13 @@
+{
+  "@@locale": "en",
+
+  "eventsScreenHeadline": "Your events",
+  "@eventsScreenHeadline": {
+    "description": "Headline of the event overview screen"
+  },
+
+  "eventMemberText": "Members",
+  "@eventMemberText": {
+    "description": "not to translate"
+  }
+}

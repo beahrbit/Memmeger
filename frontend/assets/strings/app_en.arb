@@ -1,8 +1,0 @@
-{
-	"@@locale": "en",
-
-    "eventScreenHeadline": "Your events",
-    "@eventScreenHeadline": {
-      "description": "Headline of the event overview screen"
-    }
-}
