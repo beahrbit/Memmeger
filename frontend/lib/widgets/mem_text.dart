@@ -3,39 +3,23 @@ import 'package:flutter/material.dart';
 class MemText extends StatelessWidget {
   final String data;
 
-  final Color color;
+  final TextStyle style;
 
   final double fontSize;
 
-  final FontWeight fontWeight;
-
-  final TextStyle textStyle;
-
-  final Locale? locale;
-
-  final String? semanticsLabel;
-
   MemText(
-    this.data, {
+    this.data,
+    TextStyle textStyle, {
     Key? key,
-    this.color = Colors.black,
-    this.fontSize = 14,
-    this.fontWeight = FontWeight.normal,
-    this.locale,
-    this.semanticsLabel,
-  })  : textStyle = TextStyle(
-          fontSize: fontSize,
-          color: color,
-          fontWeight: fontWeight,
-          height: 1,
-        ),
+  })  : style = textStyle.copyWith(height: 1),
+        fontSize = textStyle.fontSize ?? 14,
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<String> parts = split(data);
     return Text.rich(
-      TextSpan(children: parts.map((text) => getSpan(text)).toList()),
+      TextSpan(children: parts.map(getSpan).toList()),
     );
   }
 
@@ -55,7 +39,6 @@ class MemText extends StatelessWidget {
 
   InlineSpan getSpan(String text) {
     if (text == '') {
-
       return WidgetSpan(
         baseline: TextBaseline.ideographic,
         child: Column(
@@ -67,6 +50,7 @@ class MemText extends StatelessWidget {
               height: fontSize * 0.75,
               width: fontSize * 0.75 * 2.5,
               matchTextDirection: true,
+              color: style.color,
             ),
             Container(
               color: Colors.transparent,
@@ -79,9 +63,7 @@ class MemText extends StatelessWidget {
     } else {
       return TextSpan(
         text: text,
-        style: textStyle,
-        locale: locale,
-        semanticsLabel: semanticsLabel,
+        style: style,
       );
     }
   }

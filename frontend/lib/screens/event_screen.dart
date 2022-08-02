@@ -9,13 +9,13 @@ class EventScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final List<String> names = <String>['Emmi', 'Martin', 'Marcus'];
     return Scaffold(
       appBar: AppBar(
         title: MemText(
-          title, 
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
+          title,
+          theme.textTheme.headline6!,
         ),
       ),
       body: Padding(
@@ -31,7 +31,7 @@ class EventScreen extends StatelessWidget {
                     const SizedBox(width: 8),
                     MemText(
                       'Standort',
-                      fontSize: 17,
+                      theme.textTheme.bodyMedium!,
                     )
                   ],
                 ),
@@ -47,7 +47,7 @@ class EventScreen extends StatelessWidget {
                     const SizedBox(width: 8),
                     MemText(
                       '00:00 Uhr',
-                      fontSize: 17,
+                      theme.textTheme.bodyMedium!,
                     )
                   ],
                 ),
@@ -56,35 +56,32 @@ class EventScreen extends StatelessWidget {
             const SizedBox(height: 8),
             Card(
               child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: MemText(
-                  'Hier kommt die Ememt-Beschreibung rein. Die kann auch über mehrere Zeilen gehen, wenn man möchte',
-                  fontSize: 14,
-                )
-              ),
+                  padding: const EdgeInsets.all(8),
+                  child: MemText(
+                    'Hier kommt die Ememt-Beschreibung rein. Die kann auch über mehrere Zeilen gehen, wenn man möchte',
+                    theme.textTheme.bodyMedium!,
+                  )),
             ),
             const SizedBox(height: 24),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                MemText(
-                  AppLocalizations.of(context)!.eventMemberText,
-                  fontSize: 14,
-                )
-              ]
-            ),
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  MemText(
+                    AppLocalizations.of(context)!.eventMemberText,
+                    theme.textTheme.bodySmall!,
+                  )
+                ]),
             Expanded(
-              child: ListView.separated(
-                padding: const EdgeInsets.all(16),
-                itemCount: names.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return MemText(names[index]);
-                },
-                separatorBuilder: (BuildContext context, int index) =>
-                    const SizedBox(height: 8),
-              )
-            ),
+                child: ListView.separated(
+              padding: const EdgeInsets.all(16),
+              itemCount: names.length,
+              itemBuilder: (BuildContext context, int index) {
+                return MemText(names[index], theme.textTheme.bodyMedium!);
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  const SizedBox(height: 8),
+            )),
           ],
         ),
       ),

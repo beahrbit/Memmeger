@@ -10,6 +10,7 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
@@ -26,11 +27,7 @@ class EventCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              MemText(
-                title,
-                fontWeight: FontWeight.bold, 
-                fontSize: 21,
-              ),
+              MemText(title, theme.textTheme.titleLarge!),
               const SizedBox(height: 12),
               Row(
                 children: [
@@ -38,7 +35,7 @@ class EventCard extends StatelessWidget {
                   const SizedBox(width: 8),
                   MemText(
                     'Standort',
-                    fontSize: 15,
+                    theme.textTheme.bodyMedium!,
                   )
                 ],
               ),
@@ -49,7 +46,7 @@ class EventCard extends StatelessWidget {
                   const SizedBox(width: 8),
                   MemText(
                     '00:00 Uhr',
-                    fontSize: 15,
+                    theme.textTheme.bodyMedium!,
                   )
                 ],
               ),
@@ -60,7 +57,7 @@ class EventCard extends StatelessWidget {
                   const SizedBox(width: 8),
                   MemText(
                     'Emmi, Martin, Marcus',
-                    fontSize: 15,
+                    theme.textTheme.bodyMedium!,
                   )
                 ],
               ),
