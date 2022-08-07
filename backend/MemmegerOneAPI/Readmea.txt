@@ -1,0 +1,2 @@
+﻿Update Entitiy Framework
+Scaffold-DbContext "Data Source=memmeger.database.windows.net;Initial Catalog=Memmeger_DB;Persist Security Info=True;User ID=Mammeger;Password=Bremsnitz08?!" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DataDB -f
