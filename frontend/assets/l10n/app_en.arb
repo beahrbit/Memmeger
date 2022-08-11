@@ -9,5 +9,25 @@
   "eventMemberText": "Members",
   "@eventMemberText": {
     "description": "not to translate"
+  },
+
+  "authErrorMessage": "Authentication Error",
+  "@authErrorMessage": {
+    "description": "Message that is shown if an error occures during Authentication"
+  },
+
+  "authLoginMessage": "Login",
+  "@authLoginMessage": {
+    "description": "Label for the login screen"
+  },
+
+  "authLogoutMessage": "Logout",
+  "@authLogoutMessage": {
+    "description": "Button label for logout"
+  },
+
+  "profileTitle": "Profile",
+  "@profileTitle": {
+    "description": "Profile"
   }
 }

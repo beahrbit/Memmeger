@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../widgets/mem_text.dart';
+import '../widgets/mem/mem_text.dart';
 
 class EventScreen extends StatelessWidget {
   const EventScreen({Key? key, required this.title}) : super(key: key);

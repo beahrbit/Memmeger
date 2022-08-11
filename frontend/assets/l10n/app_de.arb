@@ -1,4 +1,8 @@
 {
   "eventsScreenHeadline": "Deine Events",
-  "eventMemberText": "Members"
+  "eventMemberText": "Members",
+  "authErrorMessage": "Ein Fehler ist bei der Authentifizierung aufgetreten",
+  "authLoginMessage": "Login",
+  "authLogoutMessage": "Logout",
+  "profileTitle": "Profil"
 }

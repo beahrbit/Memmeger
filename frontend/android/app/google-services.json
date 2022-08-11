@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "210930972059",
+    "project_id": "memager-29bb6",
+    "storage_bucket": "memager-29bb6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:210930972059:android:05d0d0dccfb1a010e21d3e",
+        "android_client_info": {
+          "package_name": "com.example.frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "210930972059-13rou33hft044aub62uo4ud8e12fas0i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaiGBCPQF3jTkLVYrnZv6iouLBaA8dkd4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "210930972059-13rou33hft044aub62uo4ud8e12fas0i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/screens/event_screen.dart';
 
-import 'mem_text.dart';
+import 'mem/mem_text.dart';
 
 class EventCard extends StatelessWidget {
   const EventCard({Key? key, required this.title}) : super(key: key);
