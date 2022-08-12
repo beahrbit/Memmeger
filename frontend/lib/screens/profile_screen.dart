@@ -11,6 +11,8 @@ import '../providers/google_sign_in_provider.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -19,6 +21,7 @@ class ProfileScreen extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final texts = AppLocalizations.of(context)!;
     final user = FirebaseAuth.instance.currentUser!;
+    final snackbarContext = ScaffoldMessenger.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -57,20 +60,26 @@ class ProfileScreen extends StatelessWidget {
             ),
             ElevatedButton(
               child: MemText(
-                'Test',
+                'Toast ID from DB',
                 textTheme.button!,
               ),
               onPressed: () async {
-                print('pressed');
-                Uri uri = Uri.parse(
-                    'http://localhost:5000/api/User/marcuspiele%40gmail.com');
+                final apiHost = dotenv.env['API_HOST'];
+                Uri uri =
+                    Uri.parse('$apiHost/api/User/marcuspiele%40gmail.com');
+                print(apiHost);
                 Response res = await get(uri);
                 if (res.statusCode == 200) {
                   List<dynamic> body = jsonDecode(res.body);
                   print(body);
+                  final id = body[0]['nutzerId'];
+                  snackbarContext.showSnackBar(SnackBar(
+                    content: Text('id $id'),
+                  ));
                 } else {
                   print('fail haha');
-                  throw "Unable to retrieve posts.";
+                  snackbarContext.showSnackBar(
+                      const SnackBar(content: Text('failed to fetch id')));
                 }
               },
             ),

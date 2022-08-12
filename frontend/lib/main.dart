@@ -9,10 +9,21 @@ import 'package:frontend/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:frontend/widgets/mem/mem_text.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
+  // environment variables
+  const String environment = String.fromEnvironment(
+    'ENVIRONMENT',
+    defaultValue: 'DEV',
+  );
+  await dotenv.load(fileName: ".env/$environment.env");
+
+  // firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  // run app
   runApp(const App());
 }
 
