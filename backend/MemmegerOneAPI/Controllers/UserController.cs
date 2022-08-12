@@ -17,7 +17,7 @@ namespace MemmegerOneAPI.Controllers
             return Ok(_DBContext.TestTables);
         }
 
-        [HttpGet("{nutzerId}")]
+        /* [HttpGet("{nutzerId}")]
         public async Task<ActionResult<TestTable>> Get(string nutzerId)
         {
             //var testTable = _DBContext.TestTables.Where(f => f.NutzerId == nutzerId); 
@@ -29,6 +29,20 @@ namespace MemmegerOneAPI.Controllers
                 return BadRequest("User not found.");
 
             return Ok(user);
+        } */ 
+
+        [HttpGet("{password}")]
+        public async Task<ActionResult<TestTable>> Get(string password)
+        {
+            var testTable = _DBContext.TestTables.Where(f => f.Password == password); 
+            if (testTable == null)
+                return BadRequest("User not found.");
+
+            /* var user = await _DBContext.TestTables.FindAsync(nutzerId);
+            if (user == null)
+                return BadRequest("User not found."); */
+
+            return Ok(testTable);
         }
 
         [HttpPost]

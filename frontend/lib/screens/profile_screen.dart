@@ -1,14 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:frontend/main.dart';
 
-import 'package:frontend/widgets/mem/mem_logo.dart';
 import 'package:frontend/widgets/mem/mem_text.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/google_sign_in_provider.dart';
+
+import 'package:http/http.dart';
+import 'dart:convert';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -52,6 +53,25 @@ class ProfileScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(builder: (context) => const HomeScreen()),
                 );
+              },
+            ),
+            ElevatedButton(
+              child: MemText(
+                'Test',
+                textTheme.button!,
+              ),
+              onPressed: () async {
+                print('pressed');
+                Uri uri = Uri.parse(
+                    'http://localhost:5000/api/User/marcuspiele%40gmail.com');
+                Response res = await get(uri);
+                if (res.statusCode == 200) {
+                  List<dynamic> body = jsonDecode(res.body);
+                  print(body);
+                } else {
+                  print('fail haha');
+                  throw "Unable to retrieve posts.";
+                }
               },
             ),
           ],
