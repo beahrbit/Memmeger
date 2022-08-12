@@ -1,2 +1,7 @@
 # Visual Studio
 /.vs/
+
+MemmegerOneAPI/obj/staticwebassets.pack.sentinel
+MemmegerOneAPI/obj/Debug/net6.0/MemmegerOneAPI.GeneratedMSBuildEditorConfig.editorconfig
+MemmegerOneAPI/obj/Debug/net6.0/project.razor.json
+MemmegerOneAPI/obj/Debug/net6.0/MemmegerOneAPI.assets.cache
