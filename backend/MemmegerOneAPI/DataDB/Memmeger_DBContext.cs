@@ -16,6 +16,8 @@ namespace MemmegerOneAPI.DataDB
         {
         }
 
+        public virtual DbSet<Event> Events { get; set; } = null!;
+        public virtual DbSet<Member> Members { get; set; } = null!;
         public virtual DbSet<TestTable> TestTables { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
 
@@ -30,6 +32,54 @@ namespace MemmegerOneAPI.DataDB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Event>(entity =>
+            {
+                entity.Property(e => e.EventId)
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
+                    .HasColumnName("Event_Id");
+
+                entity.Property(e => e.Date).HasColumnType("date");
+
+                entity.Property(e => e.Description).IsUnicode(false);
+
+                entity.Property(e => e.EntryCode)
+                    .IsUnicode(false)
+                    .HasColumnName("Entry_Code");
+
+                entity.Property(e => e.EntryLink)
+                    .IsUnicode(false)
+                    .HasColumnName("Entry_Link");
+
+                entity.Property(e => e.Location).IsUnicode(false);
+
+                entity.Property(e => e.Title).IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Member>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.EventId)
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
+                    .HasColumnName("Event_Id");
+
+                entity.Property(e => e.InvitationState)
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
+                    .HasColumnName("Invitation_State");
+
+                entity.Property(e => e.Role)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
+                    .HasColumnName("User_Id");
+            });
+
             modelBuilder.Entity<TestTable>(entity =>
             {
                 entity.HasKey(e => e.NutzerId)
@@ -53,20 +103,14 @@ namespace MemmegerOneAPI.DataDB
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasNoKey();
-
-                entity.Property(e => e.Email)
+                entity.Property(e => e.UserId)
                     .HasMaxLength(200)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasColumnName("User_Id");
 
                 entity.Property(e => e.Password)
                     .HasMaxLength(200)
                     .IsUnicode(false);
-
-                entity.Property(e => e.UserId)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
-                    .HasColumnName("User_ID");
 
                 entity.Property(e => e.Username)
                     .HasMaxLength(200)

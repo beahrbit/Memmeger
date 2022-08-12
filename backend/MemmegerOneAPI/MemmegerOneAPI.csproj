@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DataDB\" />
     <Folder Include="Model\" />
     <Folder Include="Service\" />
   </ItemGroup>
