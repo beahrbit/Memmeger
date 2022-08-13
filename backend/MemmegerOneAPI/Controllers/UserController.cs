@@ -11,76 +11,72 @@ namespace MemmegerOneAPI.Controllers
     {
         Memmeger_DBContext _DBContext = new Memmeger_DBContext();
 
+        [Route("[action]")]
         [HttpGet]
-        public async Task<ActionResult<List<TestTable>>> Get()
+        public async Task<ActionResult<TestTable>> GetUserById(string useruuid)
         {
-            return Ok(_DBContext.TestTables);
-        }
-
-        /* [HttpGet("{nutzerId}")]
-        public async Task<ActionResult<TestTable>> Get(string nutzerId)
-        {
-            //var testTable = _DBContext.TestTables.Where(f => f.NutzerId == nutzerId); 
-            //if (testTable == null)
-            //    return BadRequest("User not found.");
-
-            var user = await _DBContext.TestTables.FindAsync(nutzerId);
+            var user = await _DBContext.Users.FindAsync(useruuid);
             if (user == null)
                 return BadRequest("User not found.");
 
             return Ok(user);
-        } */ 
+        }
 
-        [HttpGet("{password}")]
-        public async Task<ActionResult<TestTable>> Get(string password)
+        [Route("[action]")]
+        [HttpGet]
+        public async Task<ActionResult<TestTable>> GetUserByPassword(string password)
         {
-            var testTable = _DBContext.TestTables.Where(f => f.Password == password); 
-            if (testTable == null)
+            var user = _DBContext.Users.Where(f => f.Password == password); 
+            if (user == null)
                 return BadRequest("User not found.");
 
-            /* var user = await _DBContext.TestTables.FindAsync(nutzerId);
-            if (user == null)
-                return BadRequest("User not found."); */
-
-            return Ok(testTable);
+            return Ok(user);
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<TestTable>>> AddUser(TestTable user)
+        public async Task<ActionResult<User>> AddUser(string username, string password)
         {
-            _DBContext.TestTables.Add(user);
+            Guid user_guid = Guid.NewGuid();
+            string uuid_user = user_guid.ToString();
+
+            User newUser = new User();
+            newUser.UserId = uuid_user; 
+            newUser.Username = username;
+            newUser.Password = password;
+
+            _DBContext.Users.Add(newUser);
             await _DBContext.SaveChangesAsync();
 
-            return Ok(await _DBContext.TestTables.ToListAsync());
+            return Ok(await _DBContext.Users.FindAsync(uuid_user));
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<TestTable>>> UpdateUser(TestTable request)
+        public async Task<ActionResult<User>> UpdateUser(User new_user)
         {
-            var user = await _DBContext.TestTables.FindAsync(request.NutzerId);
-            if (user == null)
+            var old_user = await _DBContext.Users.FindAsync(new_user.UserId);
+            if (old_user == null)
                 return BadRequest("User not found.");
 
-            user.Benutzername = request.Benutzername;
-            user.Password = request.Password;
+            old_user.Username = new_user.Username;
+            old_user.Password = new_user.Password;
 
             await _DBContext.SaveChangesAsync();
 
-            return Ok(await _DBContext.TestTables.ToListAsync());
+            return Ok(await _DBContext.Users.FindAsync(new_user.UserId));
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<TestTable>>> Delete(string id)
         {
-            var user = await _DBContext.TestTables.FindAsync(id);
+            var user = await _DBContext.Users.FindAsync(id);
             if (user == null)
                 return BadRequest("User not found.");
 
-            _DBContext.TestTables.Remove(user);
+            _DBContext.Users.Remove(user);
 
             await _DBContext.SaveChangesAsync();
 
-            return Ok(await _DBContext.TestTables.ToListAsync());
+            return Ok(await _DBContext.Users.ToListAsync());
         }
     }
 }
