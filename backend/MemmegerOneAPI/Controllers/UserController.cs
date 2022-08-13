@@ -34,20 +34,12 @@ namespace MemmegerOneAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> AddUser(string username, string password)
+        public async Task<ActionResult<User>> AddUser(User user)
         {
-            Guid user_guid = Guid.NewGuid();
-            string uuid_user = user_guid.ToString();
-
-            User newUser = new User();
-            newUser.UserId = uuid_user; 
-            newUser.Username = username;
-            newUser.Password = password;
-
-            _DBContext.Users.Add(newUser);
+            _DBContext.Users.Add(user);
             await _DBContext.SaveChangesAsync();
 
-            return Ok(await _DBContext.Users.FindAsync(uuid_user));
+            return Ok(await _DBContext.Users.FindAsync(user.UserId));
         }
 
         [HttpPut]
