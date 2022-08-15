@@ -33,7 +33,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => GoogleSignInProvider(),
+      create: (context) => UserProvider(),
       child: MaterialApp(
         title: 'App',
         localizationsDelegates: const [

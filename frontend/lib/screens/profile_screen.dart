@@ -1,27 +1,56 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frontend/main.dart';
+import 'package:frontend/model/repo/user_repository.dart';
+import 'package:frontend/screens/sign_up_screen.dart';
 
 import 'package:frontend/widgets/mem/mem_text.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/google_sign_in_provider.dart';
 
-import 'package:http/http.dart';
-import 'dart:convert';
-
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
+  void onPressLogout(BuildContext context) {
+    final provider = Provider.of<UserProvider>(context, listen: false);
+    provider.googleLogout();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const HomeScreen()),
+    );
+  }
+
+  void onPressDeleteAccount(BuildContext context) async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const HomeScreen()),
+    );
+
+    final provider = Provider.of<UserProvider>(context, listen: false);
+    await UserRepo.deleteUser(provider.user!);
+    provider.googleLogout();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print('profile screen');
     final textTheme = Theme.of(context).textTheme;
     final texts = AppLocalizations.of(context)!;
-    final user = FirebaseAuth.instance.currentUser!;
     final snackbarContext = ScaffoldMessenger.of(context);
+
+    final provider = Provider.of<UserProvider>(context, listen: false);
+    if (provider.user == null) {
+      Future.microtask(() => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SignUpScreen(),
+            ),
+          ));
+      return MemText(texts.noUserFound, textTheme.displayMedium!);
+    }
+
+    final user = provider.user!;
 
     return Scaffold(
       appBar: AppBar(
@@ -34,29 +63,23 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircleAvatar(
-              radius: 40,
-              backgroundImage: NetworkImage(user.photoURL!),
-            ),
-            const SizedBox(height: 12),
-            MemText(user.displayName!, textTheme.titleMedium!),
+            MemText(user.name, textTheme.titleMedium!),
             const SizedBox(height: 6),
-            MemText(user.email!, textTheme.labelMedium!),
+            MemText(user.mail, textTheme.labelMedium!),
             const SizedBox(height: 64),
             ElevatedButton(
               child: MemText(
                 texts.authLogoutMessage,
                 textTheme.button!,
               ),
-              onPressed: () {
-                final provider =
-                    Provider.of<GoogleSignInProvider>(context, listen: false);
-                provider.logout();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                );
-              },
+              onPressed: () => onPressLogout(context),
+            ),
+            ElevatedButton(
+              child: MemText(
+                texts.userDeleteAccount,
+                textTheme.button!,
+              ),
+              onPressed: () => onPressDeleteAccount(context),
             ),
             ElevatedButton(
               child: MemText(
@@ -64,23 +87,7 @@ class ProfileScreen extends StatelessWidget {
                 textTheme.button!,
               ),
               onPressed: () async {
-                final apiHost = dotenv.env['API_HOST'];
-                Uri uri =
-                    Uri.parse('$apiHost/api/User/marcuspiele%40gmail.com');
-                print(apiHost);
-                Response res = await get(uri);
-                if (res.statusCode == 200) {
-                  List<dynamic> body = jsonDecode(res.body);
-                  print(body);
-                  final id = body[0]['nutzerId'];
-                  snackbarContext.showSnackBar(SnackBar(
-                    content: Text('id $id'),
-                  ));
-                } else {
-                  print('fail haha');
-                  snackbarContext.showSnackBar(
-                      const SnackBar(content: Text('failed to fetch id')));
-                }
+                snackbarContext.showSnackBar(SnackBar(content: Text(user.id)));
               },
             ),
           ],

@@ -29,5 +29,8 @@
   "profileTitle": "Profile",
   "@profileTitle": {
     "description": "Profile"
-  }
+  },
+
+  "noUserFound": "No User Found. Redirecting to Login Screen...",
+  "userDeleteAccount": "Delete Account"
 }

@@ -108,7 +108,7 @@ namespace MemmegerOneAPI.DataDB
                     .IsUnicode(false)
                     .HasColumnName("User_Id");
 
-                entity.Property(e => e.Password)
+                entity.Property(e => e.Email)
                     .HasMaxLength(200)
                     .IsUnicode(false);
 

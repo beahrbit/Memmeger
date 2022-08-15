@@ -4,5 +4,7 @@
   "authErrorMessage": "Ein Fehler ist bei der Authentifizierung aufgetreten",
   "authLoginMessage": "Login",
   "authLogoutMessage": "Logout",
-  "profileTitle": "Profil"
+  "profileTitle": "Profil",
+  "noUserFound": "Kein Nutzer angemeldet",
+  "userDeleteAccount": "Account löschen"
 }
