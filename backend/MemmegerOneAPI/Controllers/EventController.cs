@@ -10,6 +10,12 @@ namespace MemmegerOneAPI.Controllers
     {
         Memmeger_DBContext _DBContext = new Memmeger_DBContext();
 
+        [HttpGet]
+        public async Task<ActionResult<List<Event>>> Get()
+        {
+            return Ok(_DBContext.Events);
+        }
+
         [Route("[action]")]
         [HttpGet]
         public async Task<ActionResult<Event>> GetEventById(string eventuuid)
@@ -68,6 +74,7 @@ namespace MemmegerOneAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Event>> AddEvent(Event new_event)
         {
+            new_event.EventId = await generateNewUUID();
             _DBContext.Events.Add(new_event);
             await _DBContext.SaveChangesAsync();
 
@@ -101,5 +108,17 @@ namespace MemmegerOneAPI.Controllers
 
             return Ok(await _DBContext.Events.ToListAsync());
         }
+        private async Task<string> generateNewUUID()
+        {
+            while (true)
+            {
+                string uuid = Guid.NewGuid().ToString();
+                if (await _DBContext.Events.FindAsync(uuid) == null)
+                {
+                    return uuid;
+                }
+            }
+        }
     }
+
 }

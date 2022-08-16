@@ -32,5 +32,6 @@
   },
 
   "noUserFound": "No User Found. Redirecting to Login Screen...",
-  "userDeleteAccount": "Delete Account"
+  "userDeleteAccount": "Delete Account",
+  "noEventsFound": "No Events found"
 }

@@ -15,10 +15,6 @@ class ProfileScreen extends UserScreen {
   void onPressLogout(BuildContext context) {
     final provider = Provider.of<UserProvider>(context, listen: false);
     provider.googleLogout();
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const SignUpScreen()),
-    );
   }
 
   void onPressDeleteAccount(BuildContext context) async {
@@ -34,7 +30,6 @@ class ProfileScreen extends UserScreen {
 
   @override
   Scaffold buildContent(BuildContext context) {
-    print('profile screen');
     final textTheme = Theme.of(context).textTheme;
     final texts = AppLocalizations.of(context)!;
     final snackbarContext = ScaffoldMessenger.of(context);

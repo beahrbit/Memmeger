@@ -50,17 +50,6 @@ class EventCard extends StatelessWidget {
                   )
                 ],
               ),
-              const SizedBox(height: 2),
-              Row(
-                children: [
-                  const Icon(Icons.person, size: 15),
-                  const SizedBox(width: 8),
-                  MemText(
-                    'Emmi, Martin, Marcus',
-                    theme.textTheme.bodyMedium!,
-                  )
-                ],
-              ),
             ],
           ),
         ),

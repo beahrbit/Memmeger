@@ -6,5 +6,6 @@
   "authLogoutMessage": "Logout",
   "profileTitle": "Profil",
   "noUserFound": "Kein Nutzer angemeldet",
-  "userDeleteAccount": "Account löschen"
+  "userDeleteAccount": "Account löschen",
+  "noEventsFound": "No Events found"
 }

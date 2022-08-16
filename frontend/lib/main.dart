@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/providers/google_sign_in_provider.dart';
 import 'package:frontend/screens/events_screen.dart';
@@ -7,6 +9,15 @@ import 'package:frontend/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
 
 void main() async {
   // environment variables
@@ -19,6 +30,11 @@ void main() async {
   // firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  // makes dev easier
+  if (environment.contains('DEV')) {
+    HttpOverrides.global = MyHttpOverrides();
+  }
 
   // run app
   runApp(const App());

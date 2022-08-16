@@ -34,6 +34,8 @@ namespace MemmegerOneAPI.DataDB
         {
             modelBuilder.Entity<Event>(entity =>
             {
+                entity.HasKey(table => table.EventId);
+
                 entity.Property(e => e.EventId)
                     .HasMaxLength(200)
                     .IsUnicode(false)
@@ -58,7 +60,7 @@ namespace MemmegerOneAPI.DataDB
 
             modelBuilder.Entity<Member>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(table => new {table.UserId, table.EventId});
 
                 entity.Property(e => e.EventId)
                     .HasMaxLength(200)
@@ -72,7 +74,8 @@ namespace MemmegerOneAPI.DataDB
 
                 entity.Property(e => e.Role)
                     .HasMaxLength(200)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasColumnName("Role");
 
                 entity.Property(e => e.UserId)
                     .HasMaxLength(200)
@@ -103,6 +106,8 @@ namespace MemmegerOneAPI.DataDB
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.HasKey(table => table.UserId);
+
                 entity.Property(e => e.UserId)
                     .HasMaxLength(200)
                     .IsUnicode(false)

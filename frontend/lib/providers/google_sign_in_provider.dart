@@ -39,5 +39,6 @@ class UserProvider extends ChangeNotifier {
     await googleSignIn.disconnect();
     fb.FirebaseAuth.instance.signOut();
     _user = null;
+    notifyListeners();
   }
 }

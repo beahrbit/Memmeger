@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frontend/model/event.dart';
 import 'package:frontend/providers/google_sign_in_provider.dart';
+import 'package:frontend/repo/event_repository.dart';
 import 'package:frontend/screens/profile_screen.dart';
 import 'package:frontend/screens/user_screen.dart';
-import 'package:frontend/widgets/event_card.dart';
+import 'package:frontend/widgets/default_future_builder.dart';
+import 'package:frontend/widgets/event_list.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/mem/mem_text.dart';
@@ -23,7 +26,6 @@ class EventsScreen extends UserScreen {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     final texts = AppLocalizations.of(context)!;
-    final List<String> entries = <String>['See', 'Grillparty', 'Memsa'];
 
     final provider = Provider.of<UserProvider>(context, listen: false);
     final user = provider.user!;
@@ -45,14 +47,18 @@ class EventsScreen extends UserScreen {
           ),
         ],
       ),
-      body: ListView.separated(
-        padding: const EdgeInsets.all(16),
-        itemCount: entries.length,
-        itemBuilder: (BuildContext context, int index) {
-          return EventCard(title: entries[index]);
+      body: DefaultFutureBuilder<List<Event>>(
+        future: EventRepo.getEventsOfUser(user.id),
+        builder: (context, events) {
+          if (events.isEmpty) {
+            return MemText(
+              texts.noEventsFound,
+              textTheme.labelMedium!,
+            );
+          }
+          return EventList(events);
         },
-        separatorBuilder: (BuildContext context, int index) =>
-            const SizedBox(height: 8),
+        errorMessage: texts.noEventsFound,
       ),
     );
   }

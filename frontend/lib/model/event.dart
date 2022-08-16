@@ -1,7 +1,17 @@
+import 'package:intl/intl.dart';
+
 class Event {
+  static final DateFormat dbDateFormat = DateFormat('yyyy-MM-dd');
+
+  static const dbEventId = "id";
+  static const dbEventTitle = "title";
+  static const dbEventDate = "date";
+  static const dbEventLocation = "location";
+  static const dbEventDescription = "description";
+
   final String _id;
   String _title;
-  String date;
+  DateTime date;
   String location;
   String description;
 
@@ -9,11 +19,11 @@ class Event {
 
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
-      json["id"] as String,
-      json["title"] as String,
-      json["date"] as String,
-      json["location"] as String,
-      json["description"] as String,
+      json[dbEventId] as String,
+      json[dbEventTitle] as String,
+      dbDateFormat.parseStrict(json[dbEventDate] as String),
+      json[dbEventLocation] as String,
+      json[dbEventDescription] as String,
     );
   }
 
