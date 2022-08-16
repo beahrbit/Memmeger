@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:frontend/model/repo/user_repository.dart';
+import 'package:frontend/repo/user_repository.dart';
 
 import 'package:frontend/widgets/mem/mem_logo.dart';
 import 'package:frontend/widgets/mem/mem_text.dart';

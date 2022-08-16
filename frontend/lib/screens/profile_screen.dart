@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:frontend/main.dart';
-import 'package:frontend/model/repo/user_repository.dart';
+import 'package:frontend/repo/user_repository.dart';
 import 'package:frontend/screens/sign_up_screen.dart';
+import 'package:frontend/screens/user_screen.dart';
 
 import 'package:frontend/widgets/mem/mem_text.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/google_sign_in_provider.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends UserScreen {
   const ProfileScreen({Key? key}) : super(key: key);
 
   void onPressLogout(BuildContext context) {
@@ -17,14 +17,14 @@ class ProfileScreen extends StatelessWidget {
     provider.googleLogout();
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const HomeScreen()),
+      MaterialPageRoute(builder: (context) => const SignUpScreen()),
     );
   }
 
   void onPressDeleteAccount(BuildContext context) async {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const HomeScreen()),
+      MaterialPageRoute(builder: (context) => const SignUpScreen()),
     );
 
     final provider = Provider.of<UserProvider>(context, listen: false);
@@ -33,25 +33,13 @@ class ProfileScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Scaffold buildContent(BuildContext context) {
     print('profile screen');
     final textTheme = Theme.of(context).textTheme;
     final texts = AppLocalizations.of(context)!;
     final snackbarContext = ScaffoldMessenger.of(context);
-
     final provider = Provider.of<UserProvider>(context, listen: false);
-    if (provider.user == null) {
-      Future.microtask(() => Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const SignUpScreen(),
-            ),
-          ));
-      return MemText(texts.noUserFound, textTheme.displayMedium!);
-    }
-
     final user = provider.user!;
-
     return Scaffold(
       appBar: AppBar(
         title: MemText(
