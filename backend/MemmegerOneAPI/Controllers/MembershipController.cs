@@ -30,10 +30,11 @@ namespace MemmegerOneAPI.Controllers
             return Ok(result);
         }
 
+        [Route("{eventId}/{userId}")]
 		[HttpDelete]
-        public async Task<ActionResult<Member>> Delete(Member member)
+        public async Task<ActionResult<Member>> Delete(String eventId, String userId)
         {
-            var membership = await _DBContext.Members.FirstOrDefaultAsync(k => k.EventId == member.EventId && k.UserId == member.UserId);
+            var membership = await _DBContext.Members.FirstOrDefaultAsync(k => k.EventId == eventId && k.UserId == userId);
             if (membership == null)
                 return BadRequest("Event not found.");
 

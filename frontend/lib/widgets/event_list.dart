@@ -12,7 +12,7 @@ class EventList extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       itemCount: events.length,
       itemBuilder: (BuildContext context, int index) {
-        return EventCard(title: events[index].title);
+        return EventCard(events[index]);
       },
       separatorBuilder: (BuildContext context, int index) =>
           const SizedBox(height: 8),

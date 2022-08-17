@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/model/event.dart';
 import 'package:frontend/screens/event_screen.dart';
 
 import 'mem/mem_text.dart';
 
 class EventCard extends StatelessWidget {
-  const EventCard({Key? key, required this.title}) : super(key: key);
+  final Event event;
 
-  final String title;
+  const EventCard(this.event, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class EventCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => EventScreen(title: title)),
+        MaterialPageRoute(builder: (context) => EventScreen(event)),
       ),
       child: Card(
         shape: RoundedRectangleBorder(
@@ -27,14 +28,14 @@ class EventCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              MemText(title, theme.textTheme.titleLarge!),
+              MemText(event.title, theme.textTheme.titleLarge!),
               const SizedBox(height: 12),
               Row(
                 children: [
                   const Icon(Icons.location_on_outlined, size: 15),
                   const SizedBox(width: 8),
                   MemText(
-                    'Standort',
+                    event.location,
                     theme.textTheme.bodyMedium!,
                   )
                 ],
@@ -45,7 +46,7 @@ class EventCard extends StatelessWidget {
                   const Icon(Icons.access_time_rounded, size: 15),
                   const SizedBox(width: 8),
                   MemText(
-                    '00:00 Uhr',
+                    Event.dbDateFormat.format(event.date),
                     theme.textTheme.bodyMedium!,
                   )
                 ],

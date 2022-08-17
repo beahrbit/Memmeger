@@ -8,8 +8,7 @@ class EventRepo {
   static final eventRoute = "${dotenv.env['API_HOST']}/api/Event";
 
   static Future<List<Event>> getEventsOfUser(String userId) async {
-    Uri uri = Uri.parse(
-        Uri.encodeFull('$eventRoute/GetEventsOfUserByUserId/$userId'));
+    Uri uri = Uri.parse(Uri.encodeFull('$eventRoute/GetEventsOfUser/$userId'));
     Response res = await get(uri);
 
     if (res.statusCode != 200) return List.empty();

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../widgets/mem/mem_text.dart';
+import 'package:frontend/model/event.dart';
+import 'package:frontend/widgets/mem/mem_text.dart';
 
 class EventScreen extends StatelessWidget {
-  const EventScreen({Key? key, required this.title}) : super(key: key);
+  final Event event;
 
-  final String title;
+  const EventScreen(this.event, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class EventScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: MemText(
-          title,
+          event.title,
           theme.textTheme.headline6!,
         ),
       ),
@@ -30,7 +31,7 @@ class EventScreen extends StatelessWidget {
                     const Icon(Icons.location_on_outlined, size: 17),
                     const SizedBox(width: 8),
                     MemText(
-                      'Standort',
+                      event.location,
                       theme.textTheme.bodyMedium!,
                     )
                   ],
@@ -46,7 +47,7 @@ class EventScreen extends StatelessWidget {
                     const Icon(Icons.access_time_rounded, size: 17),
                     const SizedBox(width: 8),
                     MemText(
-                      '00:00 Uhr',
+                      Event.dbDateFormat.format(event.date),
                       theme.textTheme.bodyMedium!,
                     )
                   ],
@@ -58,7 +59,7 @@ class EventScreen extends StatelessWidget {
               child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: MemText(
-                    'Hier kommt die Ememt-Beschreibung rein. Die kann auch über mehrere Zeilen gehen, wenn man möchte',
+                    event.description,
                     theme.textTheme.bodyMedium!,
                   )),
             ),

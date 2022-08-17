@@ -27,15 +27,13 @@ namespace MemmegerOneAPI.Controllers
             return Ok(findevent);
         }
 
-        [Route("[action]")]
+        [Route("[action]/{useruuid}")]
         [HttpGet]
-        public async Task<ActionResult<List<Event>>> GetEventsOfUserByUserId(string useruuid)
+        public async Task<ActionResult<List<Event>>> GetEventsOfUser(string useruuid)
         {
             List<Event> eventlist = new List<Event>();
 
-            var eventuuids = _DBContext.Members.Where(k => k.UserId == useruuid);
-            if (eventuuids == null)
-                return BadRequest("No Events found for this User.");
+            var eventuuids = await _DBContext.Members.Where(k => k.UserId == useruuid).ToListAsync();
 
             foreach(var item in eventuuids)
             {
@@ -52,10 +50,7 @@ namespace MemmegerOneAPI.Controllers
         public async Task<ActionResult<List<Eventuser>>> EventmemberByEventId(string eventuuid)
         {
             List<Eventuser> eventusers = new List<Eventuser>();
-            var userlist = _DBContext.Members.Where(k => k.EventId == eventuuid);
-            
-            if (userlist == null)
-                return BadRequest("No Users found for this Event.");
+            var userlist = await _DBContext.Members.Where(k => k.EventId == eventuuid).ToListAsync();
 
             foreach(var item in userlist)
             {
