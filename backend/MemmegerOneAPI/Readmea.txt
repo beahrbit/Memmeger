@@ -4,3 +4,6 @@ Scaffold-DbContext "Data Source=memmeger.database.windows.net;Initial Catalog=Me
 Videos watched
 https://www.youtube.com/watch?v=kMCNTLnna04&t=824s
 https://www.youtube.com/watch?v=Fbf_ua2t6v4&t=3199s
+
+TOPICS
+- generating .yaml spec: https://khalidabuhakmeh.com/generate-aspnet-core-openapi-spec-at-build-time

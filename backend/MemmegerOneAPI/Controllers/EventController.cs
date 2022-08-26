@@ -47,7 +47,7 @@ namespace MemmegerOneAPI.Controllers
 
         [Route("[action]")]
         [HttpGet]
-        public async Task<ActionResult<List<Eventuser>>> EventmemberByEventId(string eventuuid)
+        public async Task<ActionResult<List<Eventuser>>> GetEventmemberByEventId(string eventuuid)
         {
             List<Eventuser> eventusers = new List<Eventuser>();
             var userlist = await _DBContext.Members.Where(k => k.EventId == eventuuid).ToListAsync();
