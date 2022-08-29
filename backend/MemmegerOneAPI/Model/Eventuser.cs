@@ -1,13 +1,30 @@
 ﻿using MemmegerOneAPI.DataDB;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MemmegerOneAPI.Model
 {
     public class Eventuser
     {
-        public string? EventId { get; set; }
-        public string? UserId { get; set; }
+        [Key]
+        [Column("Event_Id")]
+        [StringLength(200)]
+        [Unicode(false)]
+        public string EventId { get; set; } = null!;
+        [Key]
+        [Column("User_Id")]
+        [StringLength(200)]
+        [Unicode(false)]
+        public string UserId { get; set; } = null!;
+        [Column("Invitation_State")]
+        [StringLength(200)]
+        [Unicode(false)]
         public string? InvitationState { get; set; }
+        [StringLength(200)]
+        [Unicode(false)]
         public string? Role { get; set; }
+        [StringLength(200)]
+        [Unicode(false)]
         public string? Username { get; set; }
 
         public Eventuser(Member member)

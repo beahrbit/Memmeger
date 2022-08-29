@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/model/event.dart';
+import 'package:frontend/model/swagger.models.swagger.dart';
 import 'package:frontend/screens/event_screen.dart';
+import 'package:intl/intl.dart';
 
 import 'mem/mem_text.dart';
 
 class EventCard extends StatelessWidget {
+  static final DateFormat dbDateFormat = DateFormat('yyyy-MM-dd');
+
   final Event event;
 
   const EventCard(this.event, {Key? key}) : super(key: key);
@@ -28,14 +31,14 @@ class EventCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              MemText(event.title, theme.textTheme.titleLarge!),
+              MemText(event.title ?? '', theme.textTheme.titleLarge!),
               const SizedBox(height: 12),
               Row(
                 children: [
                   const Icon(Icons.location_on_outlined, size: 15),
                   const SizedBox(width: 8),
                   MemText(
-                    event.location,
+                    event.location ?? '',
                     theme.textTheme.bodyMedium!,
                   )
                 ],
@@ -46,7 +49,7 @@ class EventCard extends StatelessWidget {
                   const Icon(Icons.access_time_rounded, size: 15),
                   const SizedBox(width: 8),
                   MemText(
-                    Event.dbDateFormat.format(event.date),
+                    dbDateFormat.format(event.date ?? DateTime.now()),
                     theme.textTheme.bodyMedium!,
                   )
                 ],

@@ -413,11 +413,14 @@ paths:
 components:
   schemas:
     Event:
+      required:
+        - eventId
       type: object
       properties:
         eventId:
+          maxLength: 200
+          minLength: 0
           type: string
-          nullable: true
         title:
           type: string
           nullable: true
@@ -439,50 +442,77 @@ components:
           nullable: true
       additionalProperties: false
     Eventuser:
+      required:
+        - eventId
+        - userId
       type: object
       properties:
         eventId:
+          maxLength: 200
+          minLength: 0
           type: string
-          nullable: true
         userId:
+          maxLength: 200
+          minLength: 0
           type: string
-          nullable: true
         invitationState:
+          maxLength: 200
+          minLength: 0
           type: string
           nullable: true
         role:
+          maxLength: 200
+          minLength: 0
           type: string
           nullable: true
         username:
+          maxLength: 200
+          minLength: 0
           type: string
           nullable: true
       additionalProperties: false
     Member:
+      required:
+        - eventId
+        - userId
       type: object
       properties:
         eventId:
+          maxLength: 200
+          minLength: 0
           type: string
-          nullable: true
         userId:
+          maxLength: 200
+          minLength: 0
           type: string
-          nullable: true
         invitationState:
+          maxLength: 200
+          minLength: 0
           type: string
           nullable: true
         role:
+          maxLength: 200
+          minLength: 0
           type: string
           nullable: true
       additionalProperties: false
     User:
+      required:
+        - userId
       type: object
       properties:
         userId:
+          maxLength: 200
+          minLength: 0
           type: string
-          nullable: true
         username:
+          maxLength: 200
+          minLength: 0
           type: string
           nullable: true
         email:
+          maxLength: 200
+          minLength: 0
           type: string
           nullable: true
       additionalProperties: false

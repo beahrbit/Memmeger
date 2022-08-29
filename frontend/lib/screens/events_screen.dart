@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:frontend/model/event.dart';
+import 'package:frontend/model/swagger.models.swagger.dart';
 import 'package:frontend/providers/google_sign_in_provider.dart';
-import 'package:frontend/repo/event_repository.dart';
+import 'package:frontend/providers/memmeger_api_provider.dart';
 import 'package:frontend/screens/profile_screen.dart';
 import 'package:frontend/screens/user_screen.dart';
 import 'package:frontend/widgets/default_future_builder.dart';
@@ -14,7 +14,7 @@ import '../widgets/mem/mem_text.dart';
 class EventsScreen extends UserScreen {
   const EventsScreen({Key? key}) : super(key: key);
 
-  void onTapProfile(BuildContext context) {
+  void onTapProfile(BuildContext context) async {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const ProfileScreen()),
@@ -29,6 +29,9 @@ class EventsScreen extends UserScreen {
 
     final provider = Provider.of<UserProvider>(context, listen: false);
     final user = provider.user!;
+
+    final client =
+        Provider.of<MemmegerApiProvider>(context, listen: false).client;
 
     return Scaffold(
       appBar: AppBar(
@@ -48,7 +51,8 @@ class EventsScreen extends UserScreen {
         ],
       ),
       body: DefaultFutureBuilder<List<Event>>(
-        future: EventRepo.getEventsOfUser(user.id),
+        future:
+            client.apiEventGetEventsOfUserUseruuidGet(useruuid: user.userId),
         builder: (context, events) {
           if (events.isEmpty) {
             return MemText(

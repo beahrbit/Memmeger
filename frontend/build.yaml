@@ -1,0 +1,20 @@
+targets:
+  $default:
+    sources:
+      - lib/**
+      - $package$
+      - api/**
+    builders:
+      swagger_dart_code_generator:
+        options:
+          input_folder: "api/v1/"
+          output_folder: "lib/model/"
+          separate_models: true
+          with_converter: true
+          # default_values_map:
+          #  - type_name: int
+          #    default_value: '-1'
+          #  - type_name: String
+          #    default_value: 'default'
+          #  - type_name: 'List<String>'
+          #    default_value: '[]'

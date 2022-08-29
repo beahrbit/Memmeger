@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:frontend/model/event.dart';
+import 'package:frontend/model/swagger.models.swagger.dart';
 import 'package:frontend/widgets/mem/mem_text.dart';
+import 'package:intl/intl.dart';
 
 class EventScreen extends StatelessWidget {
+  static final DateFormat dbDateFormat = DateFormat('yyyy-MM-dd');
+
   final Event event;
 
   const EventScreen(this.event, {Key? key}) : super(key: key);
@@ -15,7 +18,7 @@ class EventScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: MemText(
-          event.title,
+          event.title ?? '',
           theme.textTheme.headline6!,
         ),
       ),
@@ -31,7 +34,7 @@ class EventScreen extends StatelessWidget {
                     const Icon(Icons.location_on_outlined, size: 17),
                     const SizedBox(width: 8),
                     MemText(
-                      event.location,
+                      event.location ?? '',
                       theme.textTheme.bodyMedium!,
                     )
                   ],
@@ -47,7 +50,7 @@ class EventScreen extends StatelessWidget {
                     const Icon(Icons.access_time_rounded, size: 17),
                     const SizedBox(width: 8),
                     MemText(
-                      Event.dbDateFormat.format(event.date),
+                      dbDateFormat.format(event.date ?? DateTime.now()),
                       theme.textTheme.bodyMedium!,
                     )
                   ],
@@ -59,7 +62,7 @@ class EventScreen extends StatelessWidget {
               child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: MemText(
-                    event.description,
+                    event.description ?? '',
                     theme.textTheme.bodyMedium!,
                   )),
             ),

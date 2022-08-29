@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/model/event.dart';
+import 'package:frontend/model/swagger.models.swagger.dart';
 import 'package:frontend/widgets/event_card.dart';
 
 class EventList extends StatelessWidget {

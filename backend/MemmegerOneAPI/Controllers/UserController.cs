@@ -33,11 +33,11 @@ namespace MemmegerOneAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<User>> GetUserByEmail(string email)
         {
-            var user = _DBContext.Users.Where(f => f.Email == email); 
-            if (user == null) 
+            var userList = await _DBContext.Users.Where(f => f.Email == email).ToListAsync(); 
+            if (userList == null || userList.Count != 1) 
                 return BadRequest("User not found.");
 
-            return Ok(user);
+            return Ok(userList[0]);
         }
 
         [HttpPost]

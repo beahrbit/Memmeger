@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/providers/google_sign_in_provider.dart';
+import 'package:frontend/providers/memmeger_api_provider.dart';
 import 'package:frontend/screens/events_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -33,6 +34,7 @@ void main() async {
 
   // makes dev easier
   if (environment.contains('DEV')) {
+    print('set');
     HttpOverrides.global = MyHttpOverrides();
   }
 
@@ -45,8 +47,11 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => UserProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => MemmegerApiProvider()),
+      ],
       child: MaterialApp(
         title: 'App',
         localizationsDelegates: const [

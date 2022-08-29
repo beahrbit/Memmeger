@@ -32,94 +32,28 @@ namespace MemmegerOneAPI.DataDB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Event>(entity =>
-            {
-                entity.HasKey(table => table.EventId);
-
-                entity.Property(e => e.EventId)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
-                    .HasColumnName("Event_Id");
-
-                entity.Property(e => e.Date).HasColumnType("date");
-
-                entity.Property(e => e.Description).IsUnicode(false);
-
-                entity.Property(e => e.EntryCode)
-                    .IsUnicode(false)
-                    .HasColumnName("Entry_Code");
-
-                entity.Property(e => e.EntryLink)
-                    .IsUnicode(false)
-                    .HasColumnName("Entry_Link");
-
-                entity.Property(e => e.Location).IsUnicode(false);
-
-                entity.Property(e => e.Title).IsUnicode(false);
-            });
-
             modelBuilder.Entity<Member>(entity =>
             {
-                entity.HasKey(table => new {table.UserId, table.EventId});
+                entity.HasKey(e => new { e.EventId, e.UserId })
+                    .HasName("PK__Members__EF6D36936539C043");
 
-                entity.Property(e => e.EventId)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
-                    .HasColumnName("Event_Id");
+                entity.HasOne(d => d.Event)
+                    .WithMany(p => p.Members)
+                    .HasForeignKey(d => d.EventId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Members__Event_I__68487DD7");
 
-                entity.Property(e => e.InvitationState)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
-                    .HasColumnName("Invitation_State");
-
-                entity.Property(e => e.Role)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
-                    .HasColumnName("Role");
-
-                entity.Property(e => e.UserId)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
-                    .HasColumnName("User_Id");
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Members)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Members__User_Id__693CA210");
             });
 
             modelBuilder.Entity<TestTable>(entity =>
             {
                 entity.HasKey(e => e.NutzerId)
                     .HasName("PK__TestTabl__C0768D35664E4BFC");
-
-                entity.ToTable("TestTable");
-
-                entity.Property(e => e.NutzerId)
-                    .HasMaxLength(500)
-                    .IsUnicode(false)
-                    .HasColumnName("NutzerID");
-
-                entity.Property(e => e.Benutzername)
-                    .HasMaxLength(500)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Password)
-                    .HasMaxLength(500)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.HasKey(table => table.UserId);
-
-                entity.Property(e => e.UserId)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
-                    .HasColumnName("User_Id");
-
-                entity.Property(e => e.Email)
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Username)
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);

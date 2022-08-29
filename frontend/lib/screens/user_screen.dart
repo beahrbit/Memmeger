@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb;
+import 'package:frontend/model/swagger.models.swagger.dart';
+import 'package:frontend/providers/memmeger_api_provider.dart';
 
-import 'package:frontend/repo/user_repository.dart';
-import 'package:frontend/model/user.dart';
 import 'package:frontend/providers/google_sign_in_provider.dart';
 import 'package:frontend/screens/sign_up_screen.dart';
 import 'package:frontend/widgets/default_future_builder.dart';
@@ -19,6 +19,7 @@ abstract class UserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final textThemes = Theme.of(context).textTheme;
     final texts = AppLocalizations.of(context)!;
+    final client = Provider.of<MemmegerApiProvider>(context).client;
 
     return StreamBuilder(
       stream: fb.FirebaseAuth.instance.authStateChanges(),
@@ -38,17 +39,16 @@ abstract class UserScreen extends StatelessWidget {
         if (!snapshot.hasData || user == null || user.email == null) {
           return const SignUpScreen();
         }
-        return DefaultFutureBuilder<User?>(
-          future: UserRepo.getUserIdByMail(user.email!),
+        return DefaultFutureBuilder<User>(
+          // future: UserRepo.getUserIdByMail(user.email!),
+          future: client.apiUserGetUserByEmailGet(email: user.email!),
           builder: ((context, data) {
-            if (data == null) {
-              return const SignUpScreen();
-            }
             final provider = Provider.of<UserProvider>(context, listen: false);
             provider.initUser(data);
             return buildContent(context);
           }),
           errorMessage: texts.noUserFound,
+          noData: const SignUpScreen(),
         );
       },
     );

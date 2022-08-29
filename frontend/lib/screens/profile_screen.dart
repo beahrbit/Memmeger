@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:frontend/repo/user_repository.dart';
+import 'package:frontend/providers/memmeger_api_provider.dart';
 import 'package:frontend/screens/sign_up_screen.dart';
 import 'package:frontend/screens/user_screen.dart';
 
@@ -24,7 +24,11 @@ class ProfileScreen extends UserScreen {
     );
 
     final provider = Provider.of<UserProvider>(context, listen: false);
-    await UserRepo.deleteUser(provider.user!);
+    final client =
+        Provider.of<MemmegerApiProvider>(context, listen: false).client;
+    if (provider.user != null) {
+      await client.apiUserIdDelete(id: provider.user!.userId);
+    }
     provider.googleLogout();
   }
 
@@ -46,9 +50,9 @@ class ProfileScreen extends UserScreen {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            MemText(user.name, textTheme.titleMedium!),
+            MemText(user.username ?? '', textTheme.titleMedium!),
             const SizedBox(height: 6),
-            MemText(user.mail, textTheme.labelMedium!),
+            MemText(user.email ?? '', textTheme.labelMedium!),
             const SizedBox(height: 64),
             ElevatedButton(
               child: MemText(
@@ -70,7 +74,8 @@ class ProfileScreen extends UserScreen {
                 textTheme.button!,
               ),
               onPressed: () async {
-                snackbarContext.showSnackBar(SnackBar(content: Text(user.id)));
+                snackbarContext
+                    .showSnackBar(SnackBar(content: Text(user.userId)));
               },
             ),
           ],
