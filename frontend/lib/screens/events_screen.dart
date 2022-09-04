@@ -5,6 +5,7 @@ import 'package:frontend/providers/google_sign_in_provider.dart';
 import 'package:frontend/providers/memmeger_api_provider.dart';
 import 'package:frontend/screens/profile_screen.dart';
 import 'package:frontend/screens/user_screen.dart';
+import 'package:frontend/widgets/add_event_menu.dart';
 import 'package:frontend/widgets/default_future_builder.dart';
 import 'package:frontend/widgets/event_list.dart';
 import 'package:provider/provider.dart';
@@ -64,6 +65,7 @@ class EventsScreen extends UserScreen {
         },
         errorMessage: texts.noEventsFound,
       ),
+      floatingActionButton: const AddEventMenu(),
     );
   }
 }

@@ -43,7 +43,6 @@ namespace MemmegerOneAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> AddUser(User user)
         {
-
             user.UserId = await generateNewUUID();
             _DBContext.Users.Add(user);
             await _DBContext.SaveChangesAsync();

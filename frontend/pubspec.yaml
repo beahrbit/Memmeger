@@ -56,6 +56,13 @@ dependencies:
   chopper: ^4.0.1
   json_annotation: ^4.4.0
 
+  # menu
+  flutter_speed_dial: ^6.0.0
+
+  # qr codes
+  mobile_scanner: ^2.0.0
+  qr_flutter: ^4.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

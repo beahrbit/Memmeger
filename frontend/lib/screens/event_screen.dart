@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frontend/model/swagger.models.swagger.dart';
 import 'package:frontend/widgets/mem/mem_text.dart';
 import 'package:intl/intl.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class EventScreen extends StatelessWidget {
   static final DateFormat dbDateFormat = DateFormat('yyyy-MM-dd');
@@ -15,6 +16,7 @@ class EventScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final List<String> names = <String>['Emmi', 'Martin', 'Marcus'];
+    final texts = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         title: MemText(
@@ -68,24 +70,61 @@ class EventScreen extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  MemText(
-                    AppLocalizations.of(context)!.eventMemberText,
-                    theme.textTheme.bodySmall!,
-                  )
-                ]),
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                MemText(
+                  texts.eventMemberText,
+                  theme.textTheme.bodySmall!,
+                ),
+              ],
+            ),
             Expanded(
-                child: ListView.separated(
-              padding: const EdgeInsets.all(16),
-              itemCount: names.length,
-              itemBuilder: (BuildContext context, int index) {
-                return MemText(names[index], theme.textTheme.bodyMedium!);
-              },
-              separatorBuilder: (BuildContext context, int index) =>
-                  const SizedBox(height: 8),
-            )),
+              child: ListView.separated(
+                padding: const EdgeInsets.all(16),
+                itemCount: names.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return MemText(names[index], theme.textTheme.bodyMedium!);
+                },
+                separatorBuilder: (BuildContext context, int index) =>
+                    const SizedBox(height: 8),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                MemText(
+                  texts.eventShareHeadline,
+                  theme.textTheme.bodySmall!,
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                QrImage(
+                  backgroundColor: Colors.white,
+                  data: event.eventId,
+                  version: QrVersions.auto,
+                  size: 200.0,
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                SelectableText(
+                  event.eventId,
+                  style: theme.textTheme.bodyMedium!,
+                ),
+              ],
+            ),
           ],
         ),
       ),

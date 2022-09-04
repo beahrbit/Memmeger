@@ -28,9 +28,9 @@ namespace MemmegerOneAPI.DataDB
 
         [ForeignKey("EventId")]
         [InverseProperty("Members")]
-        public virtual Event Event { get; set; } = null!;
+        public virtual Event? Event{ get; set; }
         [ForeignKey("UserId")]
         [InverseProperty("Members")]
-        public virtual User User { get; set; } = null!;
+        public virtual User? User { get; set; }
     }
 }

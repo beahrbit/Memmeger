@@ -34,7 +34,6 @@ void main() async {
 
   // makes dev easier
   if (environment.contains('DEV')) {
-    print('set');
     HttpOverrides.global = MyHttpOverrides();
   }
 

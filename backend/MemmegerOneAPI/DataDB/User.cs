@@ -26,6 +26,6 @@ namespace MemmegerOneAPI.DataDB
         public string? Email { get; set; }
 
         [InverseProperty("User")]
-        public virtual ICollection<Member> Members { get; set; }
+        public virtual ICollection<Member>? Members { get; set; }
     }
 }

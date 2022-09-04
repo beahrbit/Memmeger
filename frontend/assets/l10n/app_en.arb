@@ -33,5 +33,11 @@
 
   "noUserFound": "No User Found. Redirecting to Login Screen...",
   "userDeleteAccount": "Delete Account",
-  "noEventsFound": "No Events found"
+  "noEventsFound": "No Events found",
+
+  "enterEvent": "Enter Event",
+  "enterEventDialogDescription": "Please insert the ID of the event you want to enter",
+  "enterEventButton": "Enter",
+  "eventNotFound": "There is not event with this ID",
+  "eventShareHeadline": "Share"
 }

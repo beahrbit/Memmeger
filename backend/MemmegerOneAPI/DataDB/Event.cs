@@ -34,6 +34,6 @@ namespace MemmegerOneAPI.DataDB
         public string? EntryLink { get; set; }
 
         [InverseProperty("Event")]
-        public virtual ICollection<Member> Members { get; set; }
+        public virtual ICollection<Member>? Members { get; set; }
     }
 }
