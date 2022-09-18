@@ -41,7 +41,11 @@ dependencies:
   google_sign_in: ^5.4.1
   provider: ^6.0.3
   flutter_signin_button: ^2.0.0
+  google_sign_in_web: ^0.10.2
 
+  #shared Preferences
+  shared_preferences: ^2.0.15
+  
   # communication
   http: ^0.13.5
 
