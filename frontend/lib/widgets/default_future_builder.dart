@@ -1,5 +1,9 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:flutter/material.dart';
 import 'package:chopper/chopper.dart';
+import 'package:frontend/screens/events_screen.dart';
+import 'package:frontend/screens/sign_up_screen.dart';
 
 import 'mem/mem_text.dart';
 
@@ -20,9 +24,17 @@ class DefaultFutureBuilder<T> extends StatelessWidget {
       Key? key})
       : super(key: key);
 
+  void onHome(BuildContext context) async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const EventsScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final textThemes = Theme.of(context).textTheme;
+    final texts = AppLocalizations.of(context)!;
 
     return FutureBuilder<Response<T>>(
       future: future,
@@ -31,10 +43,25 @@ class DefaultFutureBuilder<T> extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return Center(
-            child: MemText(
-              errorMessage,
-              textThemes.labelMedium!,
+          return Scaffold(
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MemText(
+                    errorMessage,
+                    textThemes.labelMedium!,
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    child: MemText(
+                      texts.onReturnHome,
+                      textThemes.button!,
+                    ),
+                    onPressed: () => onHome(context),
+                  ),
+                ],
+              ),
             ),
           );
         }

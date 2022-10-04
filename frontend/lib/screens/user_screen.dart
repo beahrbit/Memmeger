@@ -40,7 +40,6 @@ abstract class UserScreen extends StatelessWidget {
           return const SignUpScreen();
         }
         return DefaultFutureBuilder<User>(
-          // future: UserRepo.getUserIdByMail(user.email!),
           future: client.apiUserGetUserByEmailGet(email: user.email!),
           builder: ((context, data) {
             final provider = Provider.of<UserProvider>(context, listen: false);

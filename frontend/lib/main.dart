@@ -28,6 +28,8 @@ void main() async {
   );
   await dotenv.load(fileName: ".env/$environment.env");
 
+  print('test');
+
   // firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -56,6 +58,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('build app');
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => UserProvider()),

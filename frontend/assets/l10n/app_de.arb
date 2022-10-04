@@ -13,5 +13,6 @@
   "enterEventDialogDescription": "Bitte trage hier die Event-ID des Events ein, dem du beitreten möchtest",
   "enterEventButton": "Beitreten",
   "eventNotFound": "Kein Event mit dieser ID gefunden",
-  "eventShareHeadline": "Teilen"
+  "eventShareHeadline": "Teilen",
+  "onReturnHome": "Hauptbildschirm"
 }

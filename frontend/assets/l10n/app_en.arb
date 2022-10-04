@@ -39,5 +39,6 @@
   "enterEventDialogDescription": "Please insert the ID of the event you want to enter",
   "enterEventButton": "Enter",
   "eventNotFound": "There is not event with this ID",
-  "eventShareHeadline": "Share"
+  "eventShareHeadline": "Share",
+  "onReturnHome": "Home"
 }

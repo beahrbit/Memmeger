@@ -11,7 +11,7 @@ class MemmegerApiProvider extends ChangeNotifier {
 
   Swagger _createClient() {
     final chopper = ChopperClient(
-      baseUrl: 'http://localhost:5000',
+      baseUrl: 'http://localhost:5227',
       services: [Swagger.create()],
       converter: $JsonSerializableConverter(),
     );
