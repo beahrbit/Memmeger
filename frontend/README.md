@@ -23,5 +23,6 @@
   flutter run -d chrome --web-port 8080
   flutter run -d chrome --web-port 5000
   flutter run -d chrome --web-port 5001
-- start a chrome instance with disabled security, run command below, and paste "localhost:8080" into chrome
+- start a chrome instance with disabled security, run command below, and paste "localhost:8080" into chrome 
+- start in the frontend dir
   flutter run -d web-server --web-port 8080
