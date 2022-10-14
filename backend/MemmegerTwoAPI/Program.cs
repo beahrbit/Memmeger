@@ -30,7 +30,7 @@ builder.Services.AddSwaggerGen(options =>
 
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "MemmegerOneAPI", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "MemmegerTwoAPI", Version = "v1" });
 
     // Apply Filters for documentation
     options.SchemaFilter<IgnoreReversePropertyFilter>();
@@ -66,7 +66,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("v1/swagger.yaml", "MemmegerOneAPI");
+        c.SwaggerEndpoint("v1/swagger.yaml", "MemmegerTwoAPI");
     });
 }
 
