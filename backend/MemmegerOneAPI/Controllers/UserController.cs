@@ -9,7 +9,6 @@ namespace MemmegerOneAPI.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class UserController : ControllerBase
     {
         Memmeger_DBContext _DBContext = new Memmeger_DBContext();
@@ -30,7 +29,6 @@ namespace MemmegerOneAPI.Controllers
             if (user == null)
                 return BadRequest("User not found.");
 
-            System.Diagnostics.Debug.WriteLine("Hier war ich a");
             return Ok(user);
         }
 
