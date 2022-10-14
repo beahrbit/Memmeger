@@ -1,4 +1,5 @@
 ﻿using MemmegerOneAPI.DataDB;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +9,14 @@ namespace MemmegerOneAPI.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         Memmeger_DBContext _DBContext = new Memmeger_DBContext();
 
-        [HttpGet]
+        //Authorize 
+        //AllowAnonymus
+        [HttpGet, Authorize]
         public async Task<ActionResult<List<User>>> Get()
         {
             return Ok(_DBContext.Users);
@@ -26,6 +30,7 @@ namespace MemmegerOneAPI.Controllers
             if (user == null)
                 return BadRequest("User not found.");
 
+            System.Diagnostics.Debug.WriteLine("Hier war ich a");
             return Ok(user);
         }
 

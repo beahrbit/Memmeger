@@ -29,7 +29,6 @@ namespace MemmegerOneAPI.Controllers
             user.Username = request.UserName;
             user.PasswordHash = passwordHash;   
             user.PasswordSalt = passwordSalt;
-
             return Ok(user);
         }
 
