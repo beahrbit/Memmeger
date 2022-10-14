@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using MemmegerOneAPI.Auth;
-using System.Security.Cryptography;
-using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.IdentityModel.Tokens.Jwt;
-using MemmegerOneAPI.DataDB;
+﻿using MemmegerTwoAPI.Auth;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
 
-namespace MemmegerOneAPI.Controllers
+
+namespace MemmegerTwoAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -23,9 +22,8 @@ namespace MemmegerOneAPI.Controllers
             _configuration = configuration;
         }
 
-
         [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(FrontendUser request)
+        public async Task<ActionResult<AuthUser>> Register(UserDto request)
         {
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
@@ -37,7 +35,7 @@ namespace MemmegerOneAPI.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(FrontendUser request)
+        public async Task<ActionResult<string>> Login(UserDto request)
         {
             if (user.Username != request.Username)
             {
@@ -51,6 +49,8 @@ namespace MemmegerOneAPI.Controllers
 
             string token = CreateToken(user);
 
+            //var refreshToken = GenerateRefreshToken();
+            //SetRefreshToken(refreshToken);
 
             return Ok(token);
         }
@@ -64,7 +64,7 @@ namespace MemmegerOneAPI.Controllers
         //    {
         //        return Unauthorized("Invalid Refresh Token.");
         //    }
-        //    else if (user.TokenExpires < DateTime.Now)
+        //    else if(user.TokenExpires < DateTime.Now)
         //    {
         //        return Unauthorized("Token expired.");
         //    }

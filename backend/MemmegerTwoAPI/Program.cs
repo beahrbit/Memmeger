@@ -1,6 +1,4 @@
-global using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
@@ -9,19 +7,20 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
-builder.Services.AddControllers().AddJsonOptions(options => 
-{ 
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
     // disable dependency cycle error
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     options.JsonSerializerOptions.WriteIndented = true;
 });
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSwaggerGen(options =>
 {
-    c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
         Description = "Standard Authorization header using the Bearer scheme (\"Bearer {token}\")",
         In = ParameterLocation.Header,
@@ -29,16 +28,16 @@ builder.Services.AddSwaggerGen(c =>
         Type = SecuritySchemeType.ApiKey
     });
 
-    c.OperationFilter<SecurityRequirementsOperationFilter>();
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
 
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "MemmegerOneAPI", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "MemmegerOneAPI", Version = "v1" });
 
     // Apply Filters for documentation
-    c.SchemaFilter<IgnoreReversePropertyFilter>();
-    c.SchemaFilter<ChangeKeyAttributeRequiredFilter>();
+    options.SchemaFilter<IgnoreReversePropertyFilter>();
+    options.SchemaFilter<ChangeKeyAttributeRequiredFilter>();
 
     // Sets Nullable flags appropriately
-    c.SupportNonNullableReferenceTypes(); 
+    options.SupportNonNullableReferenceTypes();
 });
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -53,7 +52,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-Console.WriteLine(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value).ToString());
+builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
+    policy =>
+    {
+        policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+    }));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -86,4 +90,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-

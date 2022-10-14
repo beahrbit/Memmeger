@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace MemmegerOneAPI.DataDB
+namespace MemmegerTwoAPI.DataDB
 {
     [Table("TestTable")]
     public partial class TestTable

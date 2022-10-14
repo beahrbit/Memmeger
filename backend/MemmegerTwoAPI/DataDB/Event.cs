@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace MemmegerOneAPI.DataDB
+namespace MemmegerTwoAPI.DataDB
 {
     public partial class Event
     {
@@ -34,6 +34,6 @@ namespace MemmegerOneAPI.DataDB
         public string? EntryLink { get; set; }
 
         [InverseProperty("Event")]
-        public virtual ICollection<Member>? Members { get; set; }
+        public virtual ICollection<Member> Members { get; set; }
     }
 }

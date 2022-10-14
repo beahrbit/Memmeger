@@ -4,13 +4,13 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:50001",
-      "sslPort": 44375
+      "applicationUrl": "http://localhost:6244",
+      "sslPort": 44308
     }
   },
   "profiles": {
-    "MemmegerOneAPI": {
-      "commandName": "Project", 
+    "MemmegerTwoAPI": {
+      "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",

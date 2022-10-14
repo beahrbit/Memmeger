@@ -1,4 +1,4 @@
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 
@@ -37,12 +37,12 @@ public class ChangeKeyAttributeRequiredFilter : ISchemaFilter
             .Where(p => p.GetCustomAttribute<KeyAttribute>() != null)
             .Select(p => char.ToLowerInvariant(p.Name[0]) + p.Name.Substring(1));
 
-        if (keys == null || !keys.Any()) 
+        if (keys == null || !keys.Any())
             return;
 
         if (schema.Required == null)
         {
-            schema.Required = (ISet<string>) new List<string>();
+            schema.Required = (ISet<string>)new List<string>();
         }
 
         foreach (string key in keys)

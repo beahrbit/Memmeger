@@ -1,11 +1,15 @@
-﻿using MemmegerOneAPI.DataDB;
-using MemmegerOneAPI.Model;
+﻿using MemmegerTwoAPI.DataDB;
+using MemmegerTwoAPI.Model;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace MemmegerOneAPI.Controllers
+namespace MemmegerTwoAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class EventController : ControllerBase
     {
         Memmeger_DBContext _DBContext = new Memmeger_DBContext();
@@ -35,10 +39,10 @@ namespace MemmegerOneAPI.Controllers
 
             var eventuuids = await _DBContext.Members.Where(k => k.UserId == useruuid).ToListAsync();
 
-            foreach(var item in eventuuids)
+            foreach (var item in eventuuids)
             {
                 var tmpevent = await _DBContext.Events.FindAsync(item.EventId);
-                if (tmpevent != null) 
+                if (tmpevent != null)
                     eventlist.Add(tmpevent);
             }
 
@@ -52,14 +56,14 @@ namespace MemmegerOneAPI.Controllers
             List<Eventuser> eventusers = new List<Eventuser>();
             var userlist = await _DBContext.Members.Where(k => k.EventId == eventuuid).ToListAsync();
 
-            foreach(var item in userlist)
+            foreach (var item in userlist)
             {
                 var tmpEventUser = new Eventuser(item);
                 var tmpUser = await _DBContext.Users.FindAsync(item.UserId);
 
-                if(tmpUser != null)
+                if (tmpUser != null)
                     tmpEventUser.Username = tmpUser.Username;
-                
+
                 eventusers.Add(tmpEventUser);
             }
 
@@ -115,5 +119,4 @@ namespace MemmegerOneAPI.Controllers
             }
         }
     }
-
 }

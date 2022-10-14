@@ -1,21 +1,19 @@
-﻿using MemmegerOneAPI.DataDB;
+﻿using MemmegerTwoAPI.DataDB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-
-namespace MemmegerOneAPI.Controllers
+namespace MemmegerTwoAPI.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         Memmeger_DBContext _DBContext = new Memmeger_DBContext();
 
-        //Authorize 
-        //AllowAnonymus
-        [HttpGet, Authorize]
+        [HttpGet]
         public async Task<ActionResult<List<User>>> Get()
         {
             return Ok(_DBContext.Users);
@@ -36,8 +34,8 @@ namespace MemmegerOneAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<User>> GetUserByEmail(string email)
         {
-            var userList = await _DBContext.Users.Where(f => f.Email == email).ToListAsync(); 
-            if (userList == null || userList.Count != 1) 
+            var userList = await _DBContext.Users.Where(f => f.Email == email).ToListAsync();
+            if (userList == null || userList.Count != 1)
                 return BadRequest("User not found.");
 
             return Ok(userList[0]);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace MemmegerOneAPI.DataDB
+namespace MemmegerTwoAPI.DataDB
 {
     public partial class Memmeger_DBContext : DbContext
     {

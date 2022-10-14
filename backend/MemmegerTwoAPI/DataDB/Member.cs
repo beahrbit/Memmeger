@@ -1,10 +1,12 @@
-﻿using MemmegerOneAPI.DataDB;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
-namespace MemmegerOneAPI.Model
+namespace MemmegerTwoAPI.DataDB
 {
-    public class Eventuser
+    public partial class Member
     {
         [Key]
         [Column("Event_Id")]
@@ -23,16 +25,12 @@ namespace MemmegerOneAPI.Model
         [StringLength(200)]
         [Unicode(false)]
         public string? Role { get; set; }
-        [StringLength(200)]
-        [Unicode(false)]
-        public string? Username { get; set; }
 
-        public Eventuser(Member member)
-        {
-            EventId = member.EventId;
-            UserId = member.UserId;
-            InvitationState = member.InvitationState;  
-            Role = member.Role;
-        }
+        [ForeignKey("EventId")]
+        [InverseProperty("Members")]
+        public virtual Event Event { get; set; } = null!;
+        [ForeignKey("UserId")]
+        [InverseProperty("Members")]
+        public virtual User User { get; set; } = null!;
     }
 }
