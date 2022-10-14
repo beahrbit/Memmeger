@@ -25,6 +25,11 @@ builder.Services.AddSwaggerGen(c =>
     // Sets Nullable flags appropriately
     c.SupportNonNullableReferenceTypes(); 
 });
+builder.Services.AddCors(options => options.AddPolicy(name: "NgOrigins",
+    policy =>
+    {
+        policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+    }));
 
 var app = builder.Build();
 
